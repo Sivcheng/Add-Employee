@@ -1,0 +1,81 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/2.3.8/css/dataTables.bootstrap5.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/2.3.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.3.8/js/dataTables.bootstrap5.js"></script>
+    <title>{% block title %}Home{% endblock %}</title>
+  </head>
+  
+  <body>{% block content %}
+    <div class="container">
+      <div class="d-flex flex-row justify-content-between mb-3 mt-4">
+        <h3>Employee</h3>
+        <form action="{%url 'forms' %}" method="get">
+          <button
+            type="submit"
+            class="btn btn-primary"
+          >
+          Add Employee
+        </button>
+      </div>
+      <table id="example" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Office</th>
+            <th>Age</th>
+            <th>Start date</th>
+            <th>Salary</th>
+            <th width="100">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for employee in employees %}
+          <tr>
+            <td>{{employee.Name}}</td>
+            <td>{{employee.Position}}</td>
+            <td>{{employee.Office }}</td>
+            <td>{{employee.Age}}</td>
+            <td>{{employee.Start_Date}}</td>
+            <td>{{employee.Salary }}$</td>
+            <td>
+        
+              <div class="d-flex gap-2">
+              
+                <a
+                  href="{% url 'edit' employee.id %}"
+                  class="btn btn-warning btn-sm"
+                > 
+                  Edit
+                </a>
+                <a
+                  href="{% url 'delete' employee.id %}"
+                  class="btn btn-danger btn-sm"
+                >
+                  Delete
+                </a>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+  {% endblock %}
+  <script>
+new DataTable("#example");
+
+</script>
+</html>
